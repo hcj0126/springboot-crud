@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hcj.mapper.StudentMapper">
+    <sql id="studentFeild">
+        id,name,gender,age,address,qq,email
+    </sql>
+    <!--查询所有学生列表-->
+    <select id="queryStudentList" resultType="com.hcj.entity.Student">
+        select
+        <include refid="studentFeild" />
+        from student
+    </select>
+
+    <!--新增学生-->
+    <insert id="insertStudent" parameterType="com.hcj.entity.Student">
+        insert into student(name,gender,age,address,qq,email) values (#{name},#{gender},#{age},#{address},#{qq},#{email})
+    </insert>
+
+    <!--先根据id查询student信息-->
+    <select id="queryStudentById" parameterType="int" resultType="com.hcj.entity.Student">
+        select
+        <include refid="studentFeild" />
+        from student
+        where id = #{id}
+    </select>
+
+    <!--修改学生-->
+    <update id="editStudent" parameterType="com.hcj.entity.Student">
+        update student set
+        name=#{name},gender=#{gender},age=#{age},
+        address=#{address},qq=#{qq},email=#{email}
+        where id=#{id}
+    </update>
+
+    <!--根据id删除student信息-->
+    <delete id="deleteStudentById" parameterType="int">
+        delete from student where id = #{id}
+    </delete>
+</mapper>
